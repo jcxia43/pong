@@ -39,7 +39,6 @@ Piles wall;
 int main(int argc, char *argv[])
 {
 	int i, n;
-    int a[WALL_HEIGHT][WALL_WIDTH];
 
 	ball.row = TOP;
 	ball.col = LEFTEDGE;
@@ -53,14 +52,14 @@ int main(int argc, char *argv[])
 	bar.right_bottom.row = BOTTOM;
 	bar.right_bottom.col = LEFTEDGE + BAR_LEN;
 
-	wall.point = a;
+
 	wall.left_top.row = TOP + 2;
 	wall.left_top.col = LEFTEDGE + 10;
 	wall.width = WALL_WIDTH;
 	wall.height = WALL_HEIGHT;
 	for (i = 0; i < wall.height; ++i){
 		for (n = 0; n < wall.width; ++n){
-			a[i][n] = 1;
+			wall.point[i][n] = 1;
 		}
 	}
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#define MAXSIZE 100
 
 typedef struct point Point;
 typedef struct rect Rect;
@@ -17,7 +18,7 @@ struct rect
 };
 struct piles
 {
-  int *point;
+  int point[MAXSIZE][MAXSIZE];
   Point left_top;
   int width;
   int height;

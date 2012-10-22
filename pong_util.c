@@ -96,7 +96,7 @@ void render_bar(Rect * bar, int * step, char * chr,int color_pairs)
 	*step = 0;
 }
 
-void check_collide(Point * p, Rect * bar, int * vrow)
+void check_collide(Point * p, Rect * bar, Piles * wall, int * vrow)
 {
   //  printw("%d, %d\n", p->col, p->row);
   //  printw("%d, %d\n", bar->left_top.col, bar->right_bottom.col);
@@ -106,7 +106,14 @@ void check_collide(Point * p, Rect * bar, int * vrow)
 	  *vrow = -(*vrow);
 	}
   }
-
+  else{
+	  int prow = p->row - wall->left_top.row;
+	  int pcol = p->col - wall->left_top.col;
+	  if (prow >= 0 && prow <= wall->height + 1 && pcol >= 0 && pcol <= wall->width + 1){
+		  
+		  
+	  }
+  }
 }
 
 void render_piles(Piles * p, char * chr, int color_pairs)
@@ -114,9 +121,8 @@ void render_piles(Piles * p, char * chr, int color_pairs)
   int i, n;
   int * b;
   for (i = p->left_top.row; i <= p->height; ++i){
-	  b = p + (i - left_top.row) * (p->width);
 	  for (n = p->left_top.col; n <= p->width; ++n){
-		  if (0 != *(b++)){
+		  if (0 != p->point[i][n]){
 			  color_on(color_pairs);
 			  mvaddstr(i,n,chr);
 			  color_off(color_pairs);

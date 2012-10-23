@@ -84,7 +84,7 @@ void render_bar(Rect * bar, int * step, char * chr,int color_pairs)
 	bar->right_bottom.col += i;
 	left_col = bar->left_top.col;
 	right_col = bar->right_bottom.col
-;
+		;
 	for (i = top_row; i <= bottom_row; ++i){
 		for (n = left_col; n <= right_col; ++n){
 			color_on(color_pairs);
@@ -96,38 +96,57 @@ void render_bar(Rect * bar, int * step, char * chr,int color_pairs)
 	*step = 0;
 }
 
-void check_collide(Point * p, Rect * bar, Piles * wall, int * vrow)
+void check_collide(Point * p, Rect * bar, Piles * wall, int * vrow, int * vcol)
 {
-  //  printw("%d, %d\n", p->col, p->row);
-  //  printw("%d, %d\n", bar->left_top.col, bar->right_bottom.col);
+	//  printw("%d, %d\n", p->col, p->row);
+	//  printw("%d, %d\n", bar->left_top.col, bar->right_bottom.col);
   
-  if (p->col >= bar->left_top.col && p->col <= bar->right_bottom.col){
-    if (p->row == bar->left_top.row - 1){
-	  *vrow = -(*vrow);
+	if (p->col >= bar->left_top.col && p->col <= bar->right_bottom.col){
+		if (p->row == bar->left_top.row - 1){
+			*vrow = -(*vrow);
+		}
 	}
-  }
-  else{
-	  int prow = p->row - wall->left_top.row;
-	  int pcol = p->col - wall->left_top.col;
-	  if (prow >= 0 && prow <= wall->height + 1 && pcol >= 0 && pcol <= wall->width + 1){
-		  
-		  
-	  }
-  }
+
+	int prow = p->row - wall->left_top.row + (*vrow);
+	int pprow = p->row - wall->left_top.row;
+	int pcol = p->col - wall->left_top.col + (*vcol);
+	int ppcol = p->col = wall->left_top.col;
+	if (prow >= 0 && prow < wall->height && ppcol >=0 && ppcol < wall->width){
+		if (0 != wall->point[prow][ppcol]){
+			wall->point[prow][ppcol] = 0;
+			*vrow = -(*vrow);
+		}
+	}
+	else if (pprow >= 0 && pprow < wall->height && pcol >=0 && pcol < wall->width){
+		if (0 != wall->point[pprow][pcol]){
+			wall->point[pprow][pcol] = 0;
+			*vcol = -(*vcol);
+		}
+	}
+	else if (prow >= 0 && prow < wall->height && pcol >=0 && pcol < wall->width){
+		if (0 != wall->point[prow][pcol]){
+			wall->point[prow][pcol] = 0;
+			*vrow = -(*vrow);
+			*vcol = -(*vcol);
+		}
+	}
+		
+
 }
+
 
 void render_piles(Piles * p, char * chr, int color_pairs)
 {
-  int i, n;
-  int * b;
-  for (i = p->left_top.row; i <= p->height; ++i){
-	  for (n = p->left_top.col; n <= p->width; ++n){
-		  if (0 != p->point[i][n]){
-			  color_on(color_pairs);
-			  mvaddstr(i,n,chr);
-			  color_off(color_pairs);
-			  move(0,0);
-			  }
-	  }
-  }
+	int i, n;
+	int * b;
+	for (i = 0; i < p->height; ++i){
+		for (n = 0; n < p->width; ++n){
+			if (0 != p->point[i][n]){
+				color_on(color_pairs);
+				mvaddstr(i + p->left_top.row,n + p->left_top.col,chr);
+				color_off(color_pairs);
+				move(0,0);
+			}
+		}
+	}
 }

@@ -61,6 +61,7 @@ int main(int argc, char *argv[])
 		for (n = 0; n < wall.width; ++n){
 			wall.point[i][n] = 1;
 		}
+		
 	}
 
 
@@ -110,7 +111,7 @@ void ticker(int signum)
 		render_point(&ball, &Vcol, &Vrow, &point, BALL_COLOR);
 		render_bar(&bar, &step, &point, BAR_COLOR);
 		render_piles(&wall, &point, WALL_COLOR);
-		check_collide(&ball, &bar, &Vrow);
+		check_collide(&ball, &bar, &wall, &Vrow, &Vcol);
 
 		refresh();
 		flag = 0;

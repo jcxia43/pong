@@ -25,4 +25,5 @@ void draw_border(int top, int bottom, int left, int right, int color_pairs);
 void render_point(Point * p, int * vcol, int * vrow, char * chr,int color_pairs);//render the motion of a single object
 void render_bar(Rect * bar, int * step, char * chr, int color_pairs);
 void render_piles(Piles * p, char * chr, int color_pairs);
-void check_collide(Point * p, Rect * bar, int * vrow);
+void check_collide(Point * p, Rect * bar, Piles * wall, int * vrow, int * vcol);
+

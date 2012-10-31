@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
 
 	step = 0;
 
-	speed = 10;
+	speed = 20;
 	
 	initscr();
 	color();

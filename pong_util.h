@@ -14,7 +14,7 @@
 #define RED     4
 
 #define LEFTEDGE 5
-#define RIGHTEDGE 120
+#define RIGHTEDGE 70
 #define BOTTOM 30
 #define TOP 5
 

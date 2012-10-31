@@ -110,11 +110,12 @@ void check_collide(Point * p, Rect * bar, Piles * wall, int * vrow, int * vcol)
 	int prow = p->row - wall->left_top.row + (*vrow);
 	int pprow = p->row - wall->left_top.row;
 	int pcol = p->col - wall->left_top.col + (*vcol);
-	int ppcol = p->col = wall->left_top.col;
+	int ppcol = p->col - wall->left_top.col;
 	if (prow >= 0 && prow < wall->height && ppcol >=0 && ppcol < wall->width){
 		if (0 != wall->point[prow][ppcol]){
 			wall->point[prow][ppcol] = 0;
 			*vrow = -(*vrow);
+			
 		}
 	}
 	else if (pprow >= 0 && pprow < wall->height && pcol >=0 && pcol < wall->width){
